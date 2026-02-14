@@ -49,7 +49,7 @@ z-index:-1;
 
 header{
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
 padding:25px 60px;
 background:rgba(10,15,25,.8);
@@ -63,11 +63,19 @@ z-index:100;
 header h1{
 color:var(--neon-green);
 text-shadow:0 0 15px var(--neon-green);
+font-size:1.8rem;
 }
 
-.hero{text-align:center;padding:80px 20px;}
+.hero{
+text-align:center;
+padding:80px 20px;
+}
 
-.container{max-width:1300px;margin:auto;padding:40px;}
+.container{
+max-width:1300px;
+margin:auto;
+padding:40px;
+}
 
 .grid{
 display:grid;
@@ -123,7 +131,6 @@ animation:pulse 1s infinite;
 100%{opacity:1}
 }
 
-/* TARJA ESGOTADO */
 .sold-out{
 position:absolute;
 top:15px;
@@ -140,13 +147,14 @@ box-shadow:0 0 10px var(--danger);
 
 button{
 width:100%;
-padding:12px;
+padding:14px;
 border:none;
 border-radius:12px;
 font-weight:bold;
 cursor:pointer;
 font-family:'Orbitron';
 transition:.3s;
+font-size:1rem;
 }
 
 .buy{
@@ -169,11 +177,69 @@ padding:20px;
 border-radius:20px;
 width:320px;
 box-shadow:0 0 30px rgba(0,255,255,.2);
+max-height:80vh;
+overflow-y:auto;
 }
 
 .cart-btn{
 background:var(--neon-green);
 color:#000;
+}
+
+/* ========================= */
+/* ===== MOBILE VERSION ==== */
+/* ========================= */
+
+@media(max-width:768px){
+
+header{
+padding:15px 20px;
+}
+
+header h1{
+font-size:1.4rem;
+}
+
+.hero{
+padding:50px 15px;
+}
+
+.container{
+padding:20px;
+}
+
+.grid{
+grid-template-columns:1fr;
+gap:20px;
+}
+
+.card{
+padding:18px;
+}
+
+.card img{
+height:200px;
+}
+
+#cart{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+width:100%;
+border-radius:20px 20px 0 0;
+padding:15px;
+}
+
+#cart h3{
+text-align:center;
+}
+
+button{
+padding:16px;
+font-size:1rem;
+}
+
 }
 </style>
 </head>
@@ -252,7 +318,7 @@ function checkout(){
 let msg="Pedido:%0A";
 cart.forEach(i=>msg+=`- ${i.name} (R$ ${i.price.toFixed(2)})%0A`);
 msg+=`Total: R$ ${total.toFixed(2)}`;
-window.open(`https://wa.me/+550859?text=${msg}`,'_blank');
+window.open(`https://wa.me/+55085?text=${msg}`,'_blank');
 }
 
 renderProducts();
@@ -260,5 +326,3 @@ renderProducts();
 
 </body>
 </html>
-
-
