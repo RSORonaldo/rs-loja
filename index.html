@@ -2,8 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>RS Store | Premium Tech</title>
+
+<meta name="theme-color" content="#070b14">
+<meta name="description" content="RS Store - Acessórios Tech Premium">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
@@ -19,13 +23,21 @@
 --danger:#ff3b3b;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+width:100%;
+overflow-x:hidden;
+}
 
 body{
 font-family:'Orbitron',sans-serif;
 background:var(--bg);
 color:var(--text);
-overflow-x:hidden;
 }
 
 /* BACKGROUND */
@@ -42,6 +54,7 @@ opacity:.07;
 animation:moveBg 20s linear infinite;
 z-index:-1;
 }
+
 @keyframes moveBg{
 0%{transform:translate(0,0)}
 100%{transform:translate(-200px,-200px)}
@@ -51,50 +64,49 @@ header{
 display:flex;
 justify-content:center;
 align-items:center;
-padding:25px 60px;
-background:rgba(10,15,25,.8);
-backdrop-filter:blur(10px);
-border-bottom:1px solid rgba(255,255,255,.05);
+padding:20px;
+background:rgba(10,15,25,.95);
 position:sticky;
 top:0;
 z-index:100;
+text-align:center;
 }
 
 header h1{
 color:var(--neon-green);
 text-shadow:0 0 15px var(--neon-green);
-font-size:1.8rem;
+font-size:clamp(1.2rem,4vw,1.8rem);
 }
 
 .hero{
 text-align:center;
-padding:80px 20px;
+padding:60px 15px;
 }
 
 .container{
 max-width:1300px;
 margin:auto;
-padding:40px;
+padding:20px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
 }
 
 .card{
 background:var(--card);
 border-radius:20px;
 padding:20px;
-transition:.4s;
+transition:.3s;
 position:relative;
 overflow:hidden;
 border:1px solid rgba(255,255,255,.05);
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-8px);
 box-shadow:0 0 25px var(--neon-blue);
 }
 
@@ -110,13 +122,13 @@ margin-bottom:15px;
 color:var(--neon-green);
 font-weight:bold;
 margin:10px 0;
-font-size:1.2rem;
+font-size:1.1rem;
 }
 
 .stock{
 font-size:.85rem;
 color:var(--muted);
-margin-bottom:5px;
+margin-bottom:8px;
 }
 
 .low-stock{
@@ -139,10 +151,8 @@ background:var(--danger);
 color:white;
 padding:8px 50px;
 transform:rotate(-35deg);
-font-size:.8rem;
+font-size:.75rem;
 font-weight:bold;
-letter-spacing:1px;
-box-shadow:0 0 10px var(--danger);
 }
 
 button{
@@ -170,12 +180,13 @@ cursor:not-allowed;
 
 #cart{
 position:fixed;
-right:25px;
-bottom:25px;
-background:rgba(17,24,39,.95);
-padding:20px;
-border-radius:20px;
+right:20px;
+bottom:20px;
+background:rgba(17,24,39,.98);
+padding:18px;
+border-radius:18px;
 width:320px;
+max-width:95%;
 box-shadow:0 0 30px rgba(0,255,255,.2);
 max-height:80vh;
 overflow-y:auto;
@@ -184,62 +195,18 @@ overflow-y:auto;
 .cart-btn{
 background:var(--neon-green);
 color:#000;
+margin-top:10px;
 }
 
-/* ========================= */
-/* ===== MOBILE VERSION ==== */
-/* ========================= */
-
+/* MOBILE */
 @media(max-width:768px){
-
-header{
-padding:15px 20px;
-}
-
-header h1{
-font-size:1.4rem;
-}
-
-.hero{
-padding:50px 15px;
-}
-
-.container{
-padding:20px;
-}
-
-.grid{
-grid-template-columns:1fr;
-gap:20px;
-}
-
-.card{
-padding:18px;
-}
-
-.card img{
-height:200px;
-}
-
 #cart{
-position:fixed;
 left:0;
 right:0;
 bottom:0;
 width:100%;
 border-radius:20px 20px 0 0;
-padding:15px;
 }
-
-#cart h3{
-text-align:center;
-}
-
-button{
-padding:16px;
-font-size:1rem;
-}
-
 }
 </style>
 </head>
@@ -266,37 +233,38 @@ font-size:1rem;
 </div>
 
 <script>
-let products=[
+var products=[
 {id:1,name:"Carregador Turbo 45W",price:59.9,stock:0,img:"https://m.media-amazon.com/images/I/51l8ym3X7zL._AC_SL1200_.jpg"},
 {id:2,name:"Case iPhone BMW",price:90,stock:0,img:"https://http2.mlstatic.com/D_NQ_NP_2X_892058-MLB100264298653_122025-F-capinha-estilo-bmw-iphone-12-mini-13-14-15-16-pro-max.webp"},
 {id:3,name:"Fone Bluetooth TWS",price:129.9,stock:0,img:"https://m.media-amazon.com/images/I/51l8ym3X7zL._AC_SL1200_.jpg"}
 ];
 
-let cart=[];let total=0;
+var cart=[];
+var total=0;
 
 function renderProducts(){
-const grid=document.getElementById("productGrid");
+var grid=document.getElementById("productGrid");
 grid.innerHTML="";
-products.forEach(p=>{
-let low=p.stock<=2 && p.stock>0 ? "low-stock" : "";
-grid.innerHTML+=`
-<div class="card">
-${p.stock===0 ? '<div class="sold-out">ESGOTADO</div>' : ''}
-<img src="${p.img}">
-<h3>${p.name}</h3>
-<p class="price">R$ ${p.price.toFixed(2)}</p>
-<p class="stock ${low}">
-${p.stock>0 ? "Restam "+p.stock+" unidades" : "Produto indisponível"}
-</p>
-<button class="buy" ${p.stock===0?"disabled":""}
-onclick="addCart(${p.id})">Adicionar</button>
-</div>`;
+products.forEach(function(p){
+var low=p.stock<=2 && p.stock>0 ? "low-stock" : "";
+grid.innerHTML+=
+'<div class="card">'+
+(p.stock===0 ? '<div class="sold-out">ESGOTADO</div>' : '')+
+'<img src="'+p.img+'" alt="'+p.name+'">'+
+'<h3>'+p.name+'</h3>'+
+'<p class="price">R$ '+p.price.toFixed(2)+'</p>'+
+'<p class="stock '+low+'">'+
+(p.stock>0 ? "Restam "+p.stock+" unidades" : "Produto indisponível")+
+'</p>'+
+'<button class="buy" '+(p.stock===0?"disabled":"")+
+' onclick="addCart('+p.id+')">Adicionar</button>'+
+'</div>';
 });
 }
 
 function addCart(id){
-let product=products.find(p=>p.id===id);
-if(product.stock>0){
+var product=products.find(function(p){return p.id===id});
+if(product && product.stock>0){
 product.stock--;
 cart.push(product);
 total+=product.price;
@@ -306,19 +274,26 @@ renderProducts();
 }
 
 function renderCart(){
-let list=document.getElementById("cartItems");
+var list=document.getElementById("cartItems");
 list.innerHTML="";
-cart.forEach(i=>{
-list.innerHTML+=`<li>${i.name} - R$ ${i.price.toFixed(2)}</li>`;
+cart.forEach(function(i){
+list.innerHTML+='<li>'+i.name+' - R$ '+i.price.toFixed(2)+'</li>';
 });
 document.getElementById("total").textContent=total.toFixed(2);
 }
 
 function checkout(){
-let msg="Pedido:%0A";
-cart.forEach(i=>msg+=`- ${i.name} (R$ ${i.price.toFixed(2)})%0A`);
-msg+=`Total: R$ ${total.toFixed(2)}`;
-window.open(`https://wa.me/+55085?text=${msg}`,'_blank');
+if(cart.length===0){
+alert("Seu carrinho está vazio!");
+return;
+}
+var msg="Pedido:%0A";
+cart.forEach(function(i){
+msg+="- "+i.name+" (R$ "+i.price.toFixed(2)+")%0A";
+});
+msg+="Total: R$ "+total.toFixed(2);
+
+window.open("https://wa.me/5585000000000?text="+msg,'_blank');
 }
 
 renderProducts();
